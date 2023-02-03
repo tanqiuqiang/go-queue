@@ -1,4 +1,4 @@
-module github.com/zeromicro/go-queue
+module github.com/tanqiuqiang/go-queue
 
 go 1.16
 

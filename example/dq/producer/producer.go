@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/zeromicro/go-queue/dq"
+	"github.com/tanqiuqiang/go-queue/dq"
 )
 
 func main() {
