@@ -2,7 +2,6 @@ package kq
 
 import (
 	"context"
-	"strconv"
 	"time"
 
 	"github.com/segmentio/kafka-go"
@@ -53,7 +52,7 @@ func (p *Pusher) Close() error {
 	if p.executor != nil {
 		p.executor.Flush()
 	}
-	
+
 	return p.produer.Close()
 }
 
@@ -61,9 +60,10 @@ func (p *Pusher) Name() string {
 	return p.topic
 }
 
-func (p *Pusher) Push(v string) error {
+func (p *Pusher) Push(key, v string) error {
 	msg := kafka.Message{
-		Key:   []byte(strconv.FormatInt(time.Now().UnixNano(), 10)),
+		//Key:   []byte(strconv.FormatInt(time.Now().UnixNano(), 10)),
+		Key:   []byte(key),
 		Value: []byte(v),
 	}
 	if p.executor != nil {

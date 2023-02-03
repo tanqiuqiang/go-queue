@@ -111,7 +111,7 @@ for round := 0; round < 3; round++ {
 		}
 
 		fmt.Println(string(body))
-		if err := pusher.Push(string(body)); err != nil {
+		if err := pusher.Push("test-queue",string(body)); err != nil {
 			log.Fatal(err)
 		}
 	}
