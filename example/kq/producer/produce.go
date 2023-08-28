@@ -41,7 +41,8 @@ func main() {
 		}
 
 		fmt.Println(string(body))
-		if err := pusher.Push("test-queue", string(body)); err != nil {
+		hed := make(map[string]string)
+		if err := pusher.Push("test-queue", string(body), hed); err != nil {
 			log.Fatal(err)
 		}
 	}

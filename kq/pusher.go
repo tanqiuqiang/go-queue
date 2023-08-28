@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/segmentio/kafka-go"
+	"github.com/segmentio/kafka-go/protocol"
 	"github.com/zeromicro/go-zero/core/executors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -60,11 +61,17 @@ func (p *Pusher) Name() string {
 	return p.topic
 }
 
-func (p *Pusher) Push(key, v string) error {
+func (p *Pusher) Push(key, v string, header map[string]string) error {
+	var hed []protocol.Header
+	for k, v := range header {
+		hed = append(hed, protocol.Header{Key: k, Value: []byte(v)})
+	}
+
 	msg := kafka.Message{
 		//Key:   []byte(strconv.FormatInt(time.Now().UnixNano(), 10)),
-		Key:   []byte(key),
-		Value: []byte(v),
+		Key:     []byte(key),
+		Value:   []byte(v),
+		Headers: hed,
 	}
 	if p.executor != nil {
 		return p.executor.Add(msg, len(v))
